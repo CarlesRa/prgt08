@@ -4,12 +4,13 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class CentreSalud {
-    static Scanner lec = new Scanner(System.in);
+    private  static Scanner lec = new Scanner(System.in);
     private Pacient [] registroPacientes;
+    private int [] preRev;
     private int contadorPacientes;
     private int eleccionMenu;
     public CentreSalud(){
-         registroPacientes = new Pacient[1240];
+        registroPacientes = new Pacient[1240];
         contadorPacientes = 0;
         do{
             visualizarMenu();
@@ -25,12 +26,13 @@ public class CentreSalud {
                 case 1:
                     nuevoPaciente();
                     break;
+                case 2:
+                    atenderPaciente();
+                    break;
+                case 3:
+                    break;
             }
         }while(eleccionMenu!=0);
-    }
-
-    public int getContadorPacientes(){
-        return contadorPacientes;
     }
 
     public void nuevoPaciente(){
@@ -82,12 +84,45 @@ public class CentreSalud {
             }
         }while (edat<0 || edat>120);
 
-        System.out.println("Introduzca el motivo de la consulta: ");
+        System.out.print("Introduzca el motivo de la consulta: ");
         sintomes = lec.nextLine();
         dataEntrada = Calendar.getInstance();
         Pacient pacientAux = new Pacient(sip, nombre, sexe, edat, sintomes, dataEntrada);
         registroPacientes[contadorPacientes] = pacientAux;
         contadorPacientes++;
+    }
+
+    public void atenderPaciente(){
+        preRev = new int[4];
+        int temperatura;
+        int pulsaPerMin;
+        int tensioSistolica;
+        int tensioDiastolica;
+        String sip;
+        System.out.print("Introduce el Sip del paciente a atender: ");
+        sip = lec.nextLine();
+        for(int i=0; i<contadorPacientes; i++){
+            if (registroPacientes[i].getSip()==sip && registroPacientes[i].getDataAlta()==null){
+                registroPacientes[i].toString();
+                System.out.print("Temperatura: ");
+                temperatura = lec.nextInt();
+                lec.nextLine();
+                System.out.print("Pulsaciones por minuto: ");
+                pulsaPerMin = lec.nextInt();
+                lec.nextLine();
+                System.out.print("Tensión sistólica: ");
+                tensioSistolica = lec.nextInt();
+                lec.nextLine();
+                System.out.print("Tensión diastólica: ");
+                tensioDiastolica = lec.nextInt();
+                lec.nextLine();
+                preRev[0]=temperatura;
+                preRev[1]=pulsaPerMin;
+                preRev[2]=tensioSistolica;
+                preRev[3]=tensioDiastolica;
+                registroPacientes[i].setPreRev(preRev);
+            }
+        }
     }
 
     public void visualizarMenu(){

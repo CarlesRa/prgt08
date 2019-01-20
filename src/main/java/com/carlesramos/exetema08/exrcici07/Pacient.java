@@ -8,7 +8,7 @@ public class Pacient {
     private int edat;
     private Calendar dataEntrada;
     private String sintomes;
-    private String [] preRev;
+    private int [] preRev;
     private String dataAlta;
     private String horaAlta;
     private String motiuAlta;
@@ -23,7 +23,7 @@ public class Pacient {
 
     }
 
-    public Pacient(String [] preRev){
+    public Pacient(int [] preRev){
         this.preRev = preRev;
     }
 
@@ -34,7 +34,7 @@ public class Pacient {
         edat = 0;
         dataEntrada = new GregorianCalendar();
         sintomes = sintomes;
-        preRev = new String [4];
+        preRev = new int [4];
         dataAlta = "";
         horaAlta = "";
         motiuAlta = "";
@@ -88,11 +88,11 @@ public class Pacient {
         this.sintomes = sintomes;
     }
 
-    public String[] getPreRev() {
+    public int [] getPreRev() {
         return preRev;
     }
 
-    public void setPreRev(String[] preRev) {
+    public void setPreRev(int[] preRev) {
         this.preRev = preRev;
     }
 
@@ -118,6 +118,36 @@ public class Pacient {
 
     public void setMotiuAlta(String motiuAlta) {
         this.motiuAlta = motiuAlta;
+    }
+
+    @Override
+    public String toString() {
+        return "Pacient{" +
+                "sip='" + sip + '\'' +
+                ", nom='" + nom + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", edat=" + edat +
+                ", dataEntrada=" + dataEntrada +
+                ", sintomes='" + sintomes + '\'' +
+                ", temperatura=" + preRev[0] +
+                ", Ppm="+ preRev[1]+
+                ", tensio Sistolica="+ preRev[2]+
+                ", Tensio diastólica="+preRev[3]+
+                ", dataAlta='" + dataAlta + '\'' +
+                ", horaAlta='" + horaAlta + '\'' +
+                ", motiuAlta='" + motiuAlta + '\'' +
+                '}';
+    }
+    public void mostrarPaciente(){
+        String data=dataEntrada.toString();
+        System.out.println("Pacient{" +
+                "sip='" + sip + '\'' +
+                ", nom='" + nom + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", edat=" + edat +
+                ", dataEntrada=" + data +
+                ", sintomes='" + sintomes + '\'' +
+                '}');
     }
 }
 
