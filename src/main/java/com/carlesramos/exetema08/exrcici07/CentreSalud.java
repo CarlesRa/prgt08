@@ -1,16 +1,15 @@
 package com.carlesramos.exetema08.exrcici07;
-
 import com.carlesramos.exetema08.libreria.Lib;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CentroSalud {
+public class CentreSalud {
     static Scanner lec = new Scanner(System.in);
-    private Pacient [] registroPacientes = new Pacient[1240];
+    private Pacient [] registroPacientes;
     private int contadorPacientes;
     private int eleccionMenu;
-    public CentroSalud(){
+    public CentreSalud(){
+         registroPacientes = new Pacient[1240];
         contadorPacientes = 0;
         do{
             visualizarMenu();
@@ -30,11 +29,16 @@ public class CentroSalud {
         }while(eleccionMenu!=0);
     }
 
+    public int getContadorPacientes(){
+        return contadorPacientes;
+    }
+
     public void nuevoPaciente(){
         String sip;
         String nombre;
         String sexe;
         int edat;
+        String sintomes;
         Calendar dataEntrada;
         boolean estaAtendido = false;
         boolean sexeCorrecte = true;
@@ -49,7 +53,7 @@ public class CentroSalud {
                     if (registroPacientes[contadorPacientes].getSip().equals(sip)
                             && registroPacientes[i].getDataAlta() != null) {
                         System.out.println(Lib.letraRoja() + "El paciente ya esta en la consulta..."
-                                + Lib.reiniciarColor());
+                                + Lib.reiniciarColorLetra());
                         Lib.continuar();
                         estaAtendido = true;
                     }
@@ -77,8 +81,13 @@ public class CentroSalud {
                 Lib.mensajeError();
             }
         }while (edat<0 || edat>120);
-        dataEntrada = Calendar.getInstance();
 
+        System.out.println("Introduzca el motivo de la consulta: ");
+        sintomes = lec.nextLine();
+        dataEntrada = Calendar.getInstance();
+        Pacient pacientAux = new Pacient(sip, nombre, sexe, edat, sintomes, dataEntrada);
+        registroPacientes[contadorPacientes] = pacientAux;
+        contadorPacientes++;
     }
 
     public void visualizarMenu(){

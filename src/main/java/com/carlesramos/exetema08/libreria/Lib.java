@@ -11,14 +11,14 @@ public class Lib{
         return "\u001B[31m";
     }
 
-    public static  String reiniciarColor(){
+    public static  String reiniciarColorLetra(){
         return "\u001B[0m";
     }
 
     public  static void mensajeError(){
 
         System.out.print(limpiarPantalla()+letraRoja()+
-                "Dato erroneo, pulsa intro para continuar: "+reiniciarColor());
+                "Dato erroneo, pulsa intro para continuar: "+ reiniciarColorLetra());
         lec.nextLine();
     }
 

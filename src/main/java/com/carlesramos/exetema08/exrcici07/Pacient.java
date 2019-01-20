@@ -1,29 +1,30 @@
 package com.carlesramos.exetema08.exrcici07;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 public class Pacient {
     private String sip;
     private String nom;
     private String sexe;
     private int edat;
-    private GregorianCalendar dataEntrada;
+    private Calendar dataEntrada;
     private String sintomes;
     private String [] preRev;
     private String dataAlta;
     private String horaAlta;
     private String motiuAlta;
 
-    public Pacient(String sip, String nom, String sexe, int edat, String sintomes
-            , GregorianCalendar dataEntrada, String[] preRev, String dataAlta, String horaAlta, String motiuAlta) {
+    public Pacient(String sip, String nom, String sexe, int edat, String sintomes, Calendar dataEntrada){
         this.sip = sip;
         this.nom = nom;
         this.sexe = sexe;
         this.edat = edat;
         this.dataEntrada = dataEntrada;
         this.sintomes = sintomes;
+
+    }
+
+    public Pacient(String [] preRev){
         this.preRev = preRev;
-        this.dataAlta = dataAlta;
-        this.horaAlta = horaAlta;
-        this.motiuAlta = motiuAlta;
     }
 
     public Pacient() {
@@ -71,7 +72,7 @@ public class Pacient {
         this.edat = edat;
     }
 
-    public GregorianCalendar getDataEntrada() {
+    public Calendar getDataEntrada() {
         return dataEntrada;
     }
 
