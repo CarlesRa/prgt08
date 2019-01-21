@@ -158,7 +158,8 @@ public class CentreSalud {
                     }
                     Lib.continuar();
                     break;
-
+                case 2:
+                   break;
             }
         }while (opcion!=0);
 
