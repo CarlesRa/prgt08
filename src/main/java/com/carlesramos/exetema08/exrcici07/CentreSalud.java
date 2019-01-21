@@ -1,6 +1,9 @@
 package com.carlesramos.exetema08.exrcici07;
 import com.carlesramos.exetema08.libreria.Lib;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -47,6 +50,7 @@ public class CentreSalud {
         boolean estaAtendido = false;
         boolean sexeCorrecte = true;
         do {
+            estaAtendido = false;
             System.out.print("Introduce el Sip: ");
             sip = lec.nextLine();
             if(sip.length() != 7){
@@ -54,9 +58,9 @@ public class CentreSalud {
             }
             else if(sip.length() == 7) {
                 for (int i = 0; i < contadorPacientes; i++) {
-                    if (registroPacientes[contadorPacientes].getSip().equals(sip)
-                            && registroPacientes[i].getDataAlta() != null) {
-                        System.out.println(Lib.letraRoja() + "El paciente ya esta en la consulta..."
+                    if (registroPacientes[i].getSip().equals(sip)
+                            && registroPacientes[i].getDataAlta() == null) {
+                        System.out.println(Lib.letraRoja() + "El paciente ya esta registrado..."
                                 + Lib.reiniciarColorLetra());
                         Lib.continuar();
                         estaAtendido = true;
@@ -159,7 +163,46 @@ public class CentreSalud {
                     Lib.continuar();
                     break;
                 case 2:
-                   break;
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                    long fecha1Int;
+                    long fecha2Int;
+                    long fechaPaciente;
+                    Date fechaInicio = new Date();
+                    Date fechaFinal = new Date();
+                    boolean fechaCorrecta=false;
+                    GregorianCalendar fecha1Gr = new GregorianCalendar();
+                    GregorianCalendar fecha2Gr = new GregorianCalendar();
+                    String fecha1;
+                    String fecha2;
+                    System.out.println("Introduce el intervalo de fechas a buscar: ");
+                    do{
+                        System.out.print("Fecha inicio: ");
+                        fecha1=lec.nextLine();
+                        try{
+                            fechaInicio = sdf.parse(fecha1);
+                            fechaCorrecta = true;
+                        }catch (ParseException pe) {
+                            Lib.mensajeError();
+                        }
+                    }while (!fechaCorrecta);
+                    fecha1Gr.setTime(fechaInicio);
+
+
+                    do {
+                        fechaCorrecta = false;
+                        System.out.println("Fecha final: ");
+                        fecha2 = lec.nextLine();
+                        try{
+                            fechaFinal = sdf1.parse(fecha2);
+                            fechaCorrecta = true;
+                        }catch (ParseException pe) {
+                            Lib.mensajeError();
+                        }
+                    }while (!fechaCorrecta);
+                    fecha2Gr.setTime(fechaFinal);
+
+                    break;
             }
         }while (opcion!=0);
 

@@ -1,4 +1,5 @@
 package com.carlesramos.exetema08.exrcici07;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 public class Pacient {
@@ -33,7 +34,7 @@ public class Pacient {
         sexe = "";
         edat = 0;
         dataEntrada = new GregorianCalendar();
-        sintomes = sintomes;
+        sintomes = "";
         preRev = new float [4];
         dataAlta = "";
         horaAlta = "";
@@ -122,6 +123,8 @@ public class Pacient {
 
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaStr = sdf.format(dataEntrada.getTime());
         int dia = dataEntrada.get(Calendar.DAY_OF_WEEK);
         int mes = dataEntrada.get(Calendar.MONTH)+1;
         int any = dataEntrada.get(Calendar.YEAR);
@@ -131,7 +134,7 @@ public class Pacient {
         int segons = dataEntrada.get(Calendar.SECOND);
         String horaEntrada = hora+":"+minuts+":"+segons;
         return  String.format("%-9s%-9s%3s%15s%16s%19s%12s%8s%7s%10s%12s%15s%15s\n"
-                ,sip,nom,sexe,data,horaEntrada,sintomes,preRev[0],preRev[1],preRev[2]
+                ,sip,nom,sexe,fechaStr,horaEntrada,sintomes,preRev[0],preRev[1],preRev[2]
                 ,preRev[3],dataAlta,horaAlta,motiuAlta);
     }
     public void mostrarPaciente(){
