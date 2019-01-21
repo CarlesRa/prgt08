@@ -122,11 +122,17 @@ public class Pacient {
 
     @Override
     public String toString() {
-        return String.format("%-25s%-8s%-12s",sip,nom,sexe)
-                + String.format("dd,mm,aaaa",dataEntrada.getTime())
-                + String.format("%-14s%-18f%-20f%f%f",sintomes,preRev[0],preRev[1]
-                ,preRev[2],preRev[3])
-                + String.format("%s%s%s",dataAlta,horaAlta,motiuAlta);
+        int dia = dataEntrada.get(Calendar.DAY_OF_WEEK);
+        int mes = dataEntrada.get(Calendar.MONTH)+1;
+        int any = dataEntrada.get(Calendar.YEAR);
+        String data = dia+"-"+mes+"-"+any;
+        int hora = dataEntrada.get(Calendar.HOUR_OF_DAY);
+        int minuts = dataEntrada.get(Calendar.MINUTE);
+        int segons = dataEntrada.get(Calendar.SECOND);
+        String horaEntrada = hora+":"+minuts+":"+segons;
+        return  String.format("%-9s%-9s%3s%15s%16s%19s%12s%8s%7s%10s%12s%15s%15s\n"
+                ,sip,nom,sexe,data,horaEntrada,sintomes,preRev[0],preRev[1],preRev[2]
+                ,preRev[3],dataAlta,horaAlta,motiuAlta);
     }
     public void mostrarPaciente(){
         int dia = dataEntrada.get(Calendar.DAY_OF_WEEK);
@@ -137,7 +143,7 @@ public class Pacient {
         int minuts = dataEntrada.get(Calendar.MINUTE);
         int segons = dataEntrada.get(Calendar.SECOND);
         String horaEntrada = hora+":"+minuts+":"+segons;
-        System.out.printf("%-9s%-9s%3s%15s%16s%21s\n"
+        System.out.printf("%-9s%-9s%3s%15s%16s%20s\n"
                 ,sip,nom,sexe,data,horaEntrada,sintomes);
 
     }

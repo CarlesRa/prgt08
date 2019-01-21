@@ -31,6 +31,7 @@ public class CentreSalud {
                     atenderPaciente();
                     break;
                 case 3:
+                    consultas();
                     break;
             }
         }while(eleccionMenu!=0);
@@ -128,6 +129,41 @@ public class CentreSalud {
         }
     }
 
+    public void consultas(){
+        String sip;
+        int opcion;
+        do{
+            menuConsultas();
+            opcion = lec.nextInt();
+            lec.nextLine();
+            switch (opcion){
+                case 1:
+                    do {
+                        System.out.print("Introduce el Sip: ");
+                        sip = lec.nextLine();
+                        if (sip.length() != 7) {
+                            Lib.mensajeError();
+                        }
+                    }while (sip.length()!=7);
+                    cabecera();
+                    for (int i=0; i<contadorPacientes; i++){
+                        if(registroPacientes[i].getSip().equals(sip)){
+                            if(registroPacientes[i].getPreRev()==null){
+                                registroPacientes[i].mostrarPaciente();
+                            }
+                            else {
+                                System.out.println(registroPacientes[i].toString());
+                            }
+                        }
+                    }
+                    Lib.continuar();
+                    break;
+
+            }
+        }while (opcion!=0);
+
+    }
+
     public void visualizarMenu(){
         System.out.println("*********************");
         System.out.println("**    URGENCIAS    **");
@@ -140,6 +176,20 @@ public class CentreSalud {
         System.out.println("0. Salir");
         System.out.print("Elija una opcion: ");
     }
+
+    public void menuConsultas(){
+        System.out.println("********************************");
+        System.out.println("**          CONSULTAS         **");
+        System.out.println("*********************");
+        System.out.println("1. Por Sip ...");
+        System.out.println("2. Por fechas ...");
+        System.out.println("3. Estadisticas ...");
+        System.out.println("4. Mostrar histórico mensual ...");
+        System.out.println("--------------------------------");
+        System.out.println("0. Salir");
+        System.out.print("Elija una opcion: ");
+    }
+
     public void cabecera(){
         System.out.printf("%-11s%-10s%-7s%-10s%16s%20s%8s%6s%10s%11s%16s%14s%14s\n"
                 ,"Sip","Nombre","Sexo","Fecha entrada","Hora entrada","Sintomatologia","Temp","ppm","Ten Sis"
