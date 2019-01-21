@@ -6,14 +6,14 @@ public class Pacient {
     private String nom;
     private String sexe;
     private int edat;
-    private Calendar dataEntrada;
+    private GregorianCalendar dataEntrada;
     private String sintomes;
-    private int [] preRev;
+    private float [] preRev;
     private String dataAlta;
     private String horaAlta;
     private String motiuAlta;
 
-    public Pacient(String sip, String nom, String sexe, int edat, String sintomes, Calendar dataEntrada){
+    public Pacient(String sip, String nom, String sexe, int edat, String sintomes, GregorianCalendar dataEntrada){
         this.sip = sip;
         this.nom = nom;
         this.sexe = sexe;
@@ -23,7 +23,7 @@ public class Pacient {
 
     }
 
-    public Pacient(int [] preRev){
+    public Pacient(float [] preRev){
         this.preRev = preRev;
     }
 
@@ -34,7 +34,7 @@ public class Pacient {
         edat = 0;
         dataEntrada = new GregorianCalendar();
         sintomes = sintomes;
-        preRev = new int [4];
+        preRev = new float [4];
         dataAlta = "";
         horaAlta = "";
         motiuAlta = "";
@@ -88,11 +88,11 @@ public class Pacient {
         this.sintomes = sintomes;
     }
 
-    public int [] getPreRev() {
+    public float [] getPreRev() {
         return preRev;
     }
 
-    public void setPreRev(int[] preRev) {
+    public void setPreRev(float[] preRev) {
         this.preRev = preRev;
     }
 
@@ -122,32 +122,24 @@ public class Pacient {
 
     @Override
     public String toString() {
-        return "Pacient{" +
-                "sip='" + sip + '\'' +
-                ", nom='" + nom + '\'' +
-                ", sexe='" + sexe + '\'' +
-                ", edat=" + edat +
-                ", dataEntrada=" + dataEntrada +
-                ", sintomes='" + sintomes + '\'' +
-                ", temperatura=" + preRev[0] +
-                ", Ppm="+ preRev[1]+
-                ", tensio Sistolica="+ preRev[2]+
-                ", Tensio diastólica="+preRev[3]+
-                ", dataAlta='" + dataAlta + '\'' +
-                ", horaAlta='" + horaAlta + '\'' +
-                ", motiuAlta='" + motiuAlta + '\'' +
-                '}';
+        return String.format("%-25s%-8s%-12s",sip,nom,sexe)
+                + String.format("dd,mm,aaaa",dataEntrada.getTime())
+                + String.format("%-14s%-18f%-20f%f%f",sintomes,preRev[0],preRev[1]
+                ,preRev[2],preRev[3])
+                + String.format("%s%s%s",dataAlta,horaAlta,motiuAlta);
     }
     public void mostrarPaciente(){
-        String data=dataEntrada.toString();
-        System.out.println("Pacient{" +
-                "sip='" + sip + '\'' +
-                ", nom='" + nom + '\'' +
-                ", sexe='" + sexe + '\'' +
-                ", edat=" + edat +
-                ", dataEntrada=" + data +
-                ", sintomes='" + sintomes + '\'' +
-                '}');
+        int dia = dataEntrada.get(Calendar.DAY_OF_WEEK);
+        int mes = dataEntrada.get(Calendar.MONTH)+1;
+        int any = dataEntrada.get(Calendar.YEAR);
+        String data = dia+"-"+mes+"-"+any;
+        int hora = dataEntrada.get(Calendar.HOUR_OF_DAY);
+        int minuts = dataEntrada.get(Calendar.MINUTE);
+        int segons = dataEntrada.get(Calendar.SECOND);
+        String horaEntrada = hora+":"+minuts+":"+segons;
+        System.out.printf("%-9s%-9s%3s%15s%16s%21s\n"
+                ,sip,nom,sexe,data,horaEntrada,sintomes);
+
     }
 }
 

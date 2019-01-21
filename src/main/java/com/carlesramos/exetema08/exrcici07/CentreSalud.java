@@ -1,12 +1,13 @@
 package com.carlesramos.exetema08.exrcici07;
 import com.carlesramos.exetema08.libreria.Lib;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class CentreSalud {
     private  static Scanner lec = new Scanner(System.in);
     private Pacient [] registroPacientes;
-    private int [] preRev;
+    private float [] preRev;
     private int contadorPacientes;
     private int eleccionMenu;
     public CentreSalud(){
@@ -41,7 +42,7 @@ public class CentreSalud {
         String sexe;
         int edat;
         String sintomes;
-        Calendar dataEntrada;
+        GregorianCalendar dataEntrada;
         boolean estaAtendido = false;
         boolean sexeCorrecte = true;
         do {
@@ -86,14 +87,15 @@ public class CentreSalud {
 
         System.out.print("Introduzca el motivo de la consulta: ");
         sintomes = lec.nextLine();
-        dataEntrada = Calendar.getInstance();
+        dataEntrada = new GregorianCalendar();
+        String.format("dd,mm,aaaa,hh:mm:ss",dataEntrada.getTime());
         Pacient pacientAux = new Pacient(sip, nombre, sexe, edat, sintomes, dataEntrada);
         registroPacientes[contadorPacientes] = pacientAux;
         contadorPacientes++;
     }
 
     public void atenderPaciente(){
-        preRev = new int[4];
+        preRev = new float[4];
         int temperatura;
         int pulsaPerMin;
         int tensioSistolica;
@@ -101,9 +103,10 @@ public class CentreSalud {
         String sip;
         System.out.print("Introduce el Sip del paciente a atender: ");
         sip = lec.nextLine();
-        for(int i=0; i<contadorPacientes; i++){
-            if (registroPacientes[i].getSip()==sip && registroPacientes[i].getDataAlta()==null){
-                registroPacientes[i].toString();
+        for(int x=0; x<contadorPacientes; x++){
+            if (registroPacientes[x].getSip().equals(sip)){
+                cabecera();
+                registroPacientes[x].mostrarPaciente();
                 System.out.print("Temperatura: ");
                 temperatura = lec.nextInt();
                 lec.nextLine();
@@ -120,7 +123,7 @@ public class CentreSalud {
                 preRev[1]=pulsaPerMin;
                 preRev[2]=tensioSistolica;
                 preRev[3]=tensioDiastolica;
-                registroPacientes[i].setPreRev(preRev);
+                registroPacientes[x].setPreRev(preRev);
             }
         }
     }
@@ -136,5 +139,10 @@ public class CentreSalud {
         System.out.println("---------------------");
         System.out.println("0. Salir");
         System.out.print("Elija una opcion: ");
+    }
+    public void cabecera(){
+        System.out.printf("%-11s%-10s%-7s%-10s%16s%20s%8s%6s%10s%11s%16s%14s%14s\n"
+                ,"Sip","Nombre","Sexo","Fecha entrada","Hora entrada","Sintomatologia","Temp","ppm","Ten Sis"
+                ,"Ten Dias","Fecha de alta","Hora de alta","Motivo alta");
     }
 }
