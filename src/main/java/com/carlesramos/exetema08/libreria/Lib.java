@@ -2,7 +2,7 @@ package com.carlesramos.exetema08.libreria;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import  java.util.Scanner;
-
+import java.util.Random;
 public class Lib{
     static  Scanner lec = new Scanner (System.in);
     public static  String limpiarPantalla(){
@@ -59,5 +59,13 @@ public class Lib{
 
         return true;
 
+    }
+
+    //Generar un numero random compres entre dos enters.
+    public static int random(int min, int max){
+        int aleatori;
+        Random rnd=new Random();
+        aleatori=rnd.nextInt(max-min+1)+min;
+        return aleatori;
     }
 }

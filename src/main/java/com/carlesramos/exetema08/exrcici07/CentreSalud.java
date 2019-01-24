@@ -20,9 +20,6 @@ public class CentreSalud {
             visualizarMenu();
             eleccionMenu = lec.nextInt();
             lec.nextLine();
-            if(eleccionMenu<0 || eleccionMenu>4){
-                Lib.mensajeError();
-            }
             switch(eleccionMenu){
                 case 0:
                     Lib.mensajeSalida();
